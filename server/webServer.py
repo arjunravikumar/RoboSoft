@@ -197,47 +197,22 @@ def robotCtrl(command_input, response):
     if 'forward' == command_input:
         direction_command = 'forward'
         move.move(speed_set, 'forward', 'no', rad)
-    
     elif 'backward' == command_input:
         direction_command = 'backward'
         move.move(speed_set, 'backward', 'no', rad)
-
     elif 'DS' in command_input:
         direction_command = 'no'
         move.move(speed_set, 'no', 'no', rad)
-
     elif 'left' == command_input:
         turn_command = 'left'
         move.move(speed_set, 'no', 'left', rad)
-
     elif 'right' == command_input:
         turn_command = 'right'
         move.move(speed_set, 'no', 'right', rad)
-
-    elif 'TS' in command_input:
-        turn_command = 'no'
-        if direction_command == 'no':
-            move.move(speed_set, 'no', 'no', rad)
-        else:
-            move.move(speed_set, direction_command, 'no', rad)
     elif 'up' == command_input:
-       # C_sc.singleServo(0, 1, 3)
         servo.camera_ang('lookup','no')
     elif 'down' == command_input:
-       # C_sc.singleServo(0, -1, 3)
         servo.camera_ang('lookdown','no')
-    elif 'HAstop' in command_input:
-        H_sc.stopWiggle()
-
-    elif 'stop' == command_input:
-        G_sc.stopWiggle()
-
-    elif 'home' == command_input:
-        P_sc.moveServoInit([0])
-        C_sc.moveServoInit([4])
-        T_sc.moveServoInit([1])
-        H_sc.moveServoInit([2])
-        G_sc.moveServoInit([3])
 
 
 def configPWM(command_input, response):
