@@ -23,7 +23,6 @@ import asyncio
 import websockets
 
 import json
-import app
 
 OLED_connection = 1
 try:
@@ -222,42 +221,14 @@ def robotCtrl(command_input, response):
             move.move(speed_set, 'no', 'no', rad)
         else:
             move.move(speed_set, direction_command, 'no', rad)
-
-
-   # elif 'lookleft' == command_input:
-   #     P_sc.singleServo(0, 1, 3)
-
-   # elif 'lookright' == command_input:
-   #     P_sc.singleServo(0, -1, 3)
-
-   # elif 'LRstop' in command_input:
-   #     P_sc.stopWiggle()
-
     elif 'up' == command_input:
        # C_sc.singleServo(0, 1, 3)
         servo.camera_ang('lookup','no')
     elif 'down' == command_input:
        # C_sc.singleServo(0, -1, 3)
         servo.camera_ang('lookdown','no')
-    #elif 'UDstop'==command_input:
-    #    #C_sc.stopWiggle()
-    #    servo.camera_ang('home','no')
-    #    time.sleep(0.2)
-    #    servo.clean_all()
-    elif 'handup' == command_input:
-        H_sc.singleServo(2, 1, 3)
-
-    elif 'handdown' == command_input:
-        H_sc.singleServo(2, -1, 3)
-
     elif 'HAstop' in command_input:
         H_sc.stopWiggle()
-
-    elif 'grab' == command_input:
-        G_sc.singleServo(3, -1, 3)
-
-    elif 'loose' == command_input:
-        G_sc.singleServo(3, 1, 3)
 
     elif 'stop' == command_input:
         G_sc.stopWiggle()
@@ -503,10 +474,6 @@ if __name__ == '__main__':
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
-
-#     global flask_app
-#     flask_app = app.webapp()
-#     flask_app.startthread()
 
     try:
         RL=robotLight.RobotLight()
