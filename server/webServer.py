@@ -504,16 +504,16 @@ if __name__ == '__main__':
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
 
-    global flask_app
-    flask_app = app.webapp()
-    flask_app.startthread()
+#     global flask_app
+#     flask_app = app.webapp()
+#     flask_app.startthread()
 
     try:
         RL=robotLight.RobotLight()
         RL.start()
         RL.breath(70,70,255)
     except:
-        print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package\n"sudo pip3 install rpi_ws281x"命令来安装rpi_ws281x')
+        print('Use "sudo pip3 install rpi_ws281x" to install WS_281x package\n"sudo pip3 install rpi_ws281x" rpi_ws281x')
         pass
 
     while  1:
@@ -522,7 +522,6 @@ if __name__ == '__main__':
             start_server = websockets.serve(main_logic, '0.0.0.0', 8888)
             asyncio.get_event_loop().run_until_complete(start_server)
             print('waiting for connection...')
-            # print('...connected from :', addr)
             break
         except Exception as e:
             print(e)
