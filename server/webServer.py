@@ -103,95 +103,6 @@ def FPV_thread():
 def ap_thread():
     os.system("sudo create_ap wlan0 eth0 Groovy 12345678")
 
-
-def functionSelect(command_input, response):
-    global functionMode
-    if 'scan' == command_input:
-        if OLED_connection:
-            screen.screen_show(5,'SCANNING')
-        if modeSelect == 'PT':
-            radar_send = fuc.radarScan()
-            print(radar_send)
-            response['title'] = 'scanResult'
-            response['data'] = radar_send
-            time.sleep(0.3)
-
-    elif 'findColor' == command_input:
-        if OLED_connection:
-            screen.screen_show(5,'FindColor')
-        if modeSelect == 'PT':
-            flask_app.modeselect('findColor')
-
-    elif 'motionGet' == command_input:
-        if OLED_connection:
-            screen.screen_show(5,'MotionGet')
-        flask_app.modeselect('watchDog')
-
-    elif 'stopCV' == command_input:
-        flask_app.modeselect('none')
-        switch.switch(1,0)
-        switch.switch(2,0)
-        switch.switch(3,0)
-
-    elif 'police' == command_input:
-        if OLED_connection:
-            screen.screen_show(5,'POLICE')
-        RL.police()
-
-    elif 'policeOff' == command_input:
-        RL.pause()
-        move.motorStop()
-
-    elif 'automatic' == command_input:
-        if OLED_connection:
-            screen.screen_show(5,'Automatic')
-        if modeSelect == 'PT':
-            fuc.automatic()
-        else:
-            fuc.pause()
-
-    elif 'automaticOff' == command_input:
-        fuc.pause()
-        move.motorStop()
-
-    elif 'trackLine' == command_input:
-        fuc.trackLine()
-        if OLED_connection:
-            screen.screen_show(5,'TrackLine')
-
-    elif 'trackLineOff' == command_input:
-        fuc.pause()
-
-    elif 'steadyCamera' == command_input:
-        if OLED_connection:
-            screen.screen_show(5,'SteadyCamera')
-        fuc.steady(C_sc.lastPos[4])
-
-    elif 'steadyCameraOff' == command_input:
-        fuc.pause()
-        move.motorStop()
-
-
-def switchCtrl(command_input, response):
-    if 'Switch_1_on' in command_input:
-        switch.switch(1,1)
-
-    elif 'Switch_1_off' in command_input:
-        switch.switch(1,0)
-
-    elif 'Switch_2_on' in command_input:
-        switch.switch(2,1)
-
-    elif 'Switch_2_off' in command_input:
-        switch.switch(2,0)
-
-    elif 'Switch_3_on' in command_input:
-        switch.switch(3,1)
-
-    elif 'Switch_3_off' in command_input:
-        switch.switch(3,0) 
-
-
 def robotCtrl(command_input, response):
     global direction_command, turn_command
     if 'forward' == command_input:
@@ -213,62 +124,6 @@ def robotCtrl(command_input, response):
         servo.camera_ang('lookup','no')
     elif 'down' == command_input:
         servo.camera_ang('lookdown','no')
-
-
-def configPWM(command_input, response):
-    global init_pwm0, init_pwm1, init_pwm2, init_pwm3, init_pwm4
-    if 'SiLeft' == command_input:
-        init_pwm0 += 1
-        scGear.setPWM(0,init_pwm0)
-    elif 'SiRight' == command_input:
-        init_pwm0 -= 1
-        scGear.setPWM(0,-init_pwm0)
-    elif 'PWM0MS' == command_input:
-        scGear.initConfig(0,init_pwm0,1)
-        replace_num('init_pwm0 = ', init_pwm0)
-
-    elif 'PWM1MS' == command_input:
-        init_pwm1 = P_sc.lastPos[1]
-        P_sc.initConfig(1,P_sc.lastPos[1],1)
-        replace_num('init_pwm1 = ', P_sc.lastPos[1])
-
-    elif 'PWM2MS' == command_input:
-        init_pwm2 = T_sc.lastPos[2]
-        T_sc.initConfig(2,T_sc.lastPos[2],1)
-        print('LLLLLS',T_sc.lastPos[2])
-        replace_num('init_pwm2 = ', T_sc.lastPos[2])
-
-    elif 'PWM3MS' == command_input:
-        init_pwm3 = H_sc.lastPos[3]
-        H_sc.initConfig(3,H_sc.lastPos[3],1)
-        replace_num('init_pwm3 = ', H_sc.lastPos[3])
-
-    elif 'PWM4MS' == command_input:
-        init_pwm4 = G_sc.lastPos[4]
-        G_sc.initConfig(4,G_sc.lastPos[4],1)
-        replace_num('init_pwm4 = ', G_sc.lastPos[4])
-
-    elif 'PWMINIT' == command_input:
-        print(init_pwm1)
-        servoPosInit()
-
-    elif 'PWMD' == command_input:
-        init_pwm0,init_pwm1,init_pwm2,init_pwm3,init_pwm4=300,300,300,300,300
-        scGear.initConfig(0,init_pwm0,1)
-        replace_num('init_pwm0 = ', 300)
-
-        P_sc.initConfig(1,300,1)
-        replace_num('init_pwm1 = ', 300)
-
-        T_sc.initConfig(2,300,1)
-        replace_num('init_pwm2 = ', 300)
-
-        H_sc.initConfig(3,300,1)
-        replace_num('init_pwm3 = ', 300)
-
-        G_sc.initConfig(4,300,1)
-        replace_num('init_pwm4 = ', 300)
-
 
 def update_code():
     # Update local to be consistent with remote
@@ -329,7 +184,6 @@ def wifi_check():
 
 async def check_permit(websocket):
     while True:
-        print("check_permit")
         recv_str = await websocket.recv()
         cred_dict = recv_str.split(":")
         if cred_dict[0] == "tumbler" and cred_dict[1] == "wakeup":
@@ -346,7 +200,6 @@ async def recv_msg(websocket):
     direction_command = 'no'
     turn_command = 'no'
     while True:
-        print("recv_msg")
         response = {
             'status' : 'ok',
             'title' : '',
@@ -366,12 +219,6 @@ async def recv_msg(websocket):
         if isinstance(data,str):
             robotCtrl(data, response)
 
-            switchCtrl(data, response)
-
-            functionSelect(data, response)
-
-            configPWM(data, response)
-
             if 'get_info' == data:
                 response['title'] = 'get_info'
                 response['data'] = [info.get_cpu_tempfunc(), info.get_cpu_use(), info.get_ram_info()]
@@ -382,50 +229,6 @@ async def recv_msg(websocket):
                     speed_set = int(set_B[1])
                 except:
                     pass
-
-            elif 'AR' == data:
-                modeSelect = 'AR'
-                screen.screen_show(4, 'ARM MODE ON')
-                try:
-                    fpv.changeMode('ARM MODE ON')
-                except:
-                    pass
-
-            elif 'PT' == data:
-                modeSelect = 'PT'
-                screen.screen_show(4, 'PT MODE ON')
-                try:
-                    fpv.changeMode('PT MODE ON')
-                except:
-                    pass
-
-            #CVFL
-            elif 'CVFL' == data:
-                flask_app.modeselect('findlineCV')
-
-            elif 'CVFLColorSet' in data:
-                color = int(data.split()[1])
-                flask_app.camera.colorSet(color)
-
-            elif 'CVFLL1' in data:
-                pos = int(data.split()[1])
-                flask_app.camera.linePosSet_1(pos)
-
-            elif 'CVFLL2' in data:
-                pos = int(data.split()[1])
-                flask_app.camera.linePosSet_2(pos)
-
-            elif 'CVFLSP' in data:
-                err = int(data.split()[1])
-                flask_app.camera.errorSet(err)
-
-            elif 'defEC' in data:#Z
-                fpv.defaultExpCom()
-
-        elif(isinstance(data,dict)):
-            if data['title'] == "findColorSet":
-                color = data['data']
-                flask_app.colorFindSet(color[0],color[1],color[2])
 
         if not functionMode:
             if OLED_connection:
