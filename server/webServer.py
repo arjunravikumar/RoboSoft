@@ -206,7 +206,6 @@ def robotCtrl(command_input, response):
         direction_command = 'no'
         move.move(speed_set, 'no', 'no', rad)
 
-
     elif 'left' == command_input:
         turn_command = 'left'
         move.move(speed_set, 'no', 'left', rad)
@@ -357,8 +356,8 @@ async def check_permit(websocket):
     while True:
         recv_str = await websocket.recv()
         cred_dict = recv_str.split(":")
-        if cred_dict[0] == "admin" and cred_dict[1] == "123456":
-            response_str = "congratulation, you have connect with server\r\nnow, you can do something else"
+        if cred_dict[0] == "tumbler" and cred_dict[1] == "wakeup":
+            response_str = "Connected.."
             await websocket.send(response_str)
             return True
         else:
