@@ -328,18 +328,20 @@ def wifi_check():
             screen.screen_show(3, 'AP MODE ON')
 
 async def check_permit(websocket):
+    print("check_permit")
     while True:
         recv_str = await websocket.recv()
         cred_dict = recv_str.split(":")
         if cred_dict[0] == "tumbler" and cred_dict[1] == "wakeup":
-            response_str = "Connected.."
+            response_str = "Ready to accept commands"
             await websocket.send(response_str)
             return True
         else:
-            response_str = "sorry, the username or password is wrong, please submit again"
+            response_str = "sorry, the username or password is wrong"
             await websocket.send(response_str)
 
 async def recv_msg(websocket):
+    print("recv_msg")
     global speed_set, modeSelect
     move.setup()
     direction_command = 'no'
