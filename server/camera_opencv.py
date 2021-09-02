@@ -104,28 +104,6 @@ class Camera(BaseCamera):
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
 
-        cvt = CVThread()
-        cvt.start()
-
         while True:
-            # read current frame
             _, img = camera.read()
-
-            if Camera.modeSelect == 'none':
-                switch.switch(1,0)
-                cvt.pause()
-            else:
-                if cvt.CVThreading:
-                    pass
-                else:
-                    cvt.mode(Camera.modeSelect, img)
-                    cvt.resume()
-                try:
-                    img = cvt.elementDraw(img)
-                except:
-                    pass
-            
-
-
-            # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
