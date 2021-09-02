@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # File name   : findline.py
-# Description : line tracking 
+# Description : line tracking
 # Website     : www.adeept.com
 # E-mail      : support@adeept.com
 # Author      : William

@@ -7,7 +7,6 @@
 # Date        : 2019/02/23
 
 import time
-import threading
 import cv2
 import zmq
 import base64

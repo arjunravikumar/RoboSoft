@@ -8,7 +8,6 @@ import switch
 import datetime
 import PID
 import time
-import threading
 import imutils
 import robotLight
 

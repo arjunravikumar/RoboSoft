@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # File name   : move.py
 # Description : Control Motor
-# Product     : RaspTank  
+# Product     : RaspTank
 # Website     : www.adeept.com
 # E-mail      : support@adeept.com
 # Author      : William
