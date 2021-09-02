@@ -13,7 +13,6 @@ import os
 import info
 import RPIservo
 import servo
-import functions
 import robotLight
 import switch
 import socket
@@ -61,7 +60,6 @@ H_sc.start()
 G_sc = RPIservo.ServoCtrl()
 G_sc.start()
 
-# modeSelect = 'none'
 modeSelect = 'PT'
 
 init_pwm0 = scGear.initPos[0]
@@ -69,9 +67,6 @@ init_pwm1 = scGear.initPos[1]
 init_pwm2 = scGear.initPos[2]
 init_pwm3 = scGear.initPos[3]
 init_pwm4 = scGear.initPos[4]
-
-fuc = functions.Functions()
-fuc.start()
 
 curpath = os.path.realpath(__file__)
 thisPath = "/" + os.path.dirname(curpath)
