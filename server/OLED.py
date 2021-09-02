@@ -15,7 +15,7 @@ try:
 	serial = i2c(port=1, address=0x3C)
 	device = ssd1306(serial, rotate=0)
 except:
-	print('OLED disconnected\nOLED没有连接')
+	print('OLED disconnected')
 
 text_1 = 'GEWBOT.COM'
 text_2 = 'IP:CONNECTING'
