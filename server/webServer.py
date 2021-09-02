@@ -17,6 +17,7 @@ import functions
 import robotLight
 import switch
 import socket
+import ultra
 
 #websocket
 import asyncio
@@ -203,7 +204,8 @@ async def recv_msg(websocket):
         response = {
             'status' : 'ok',
             'title' : '',
-            'data' : None
+            'data' : None,
+            'dist': ultra.checkdist()
         }
 
         data = ''
