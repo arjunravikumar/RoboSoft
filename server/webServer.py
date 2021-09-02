@@ -249,7 +249,7 @@ async def main_logic(websocket, path):
 if __name__ == '__main__':
     switch.switchSetup()
     switch.set_all_switch_off()
-
+    FPV_thread()
     HOST = ''
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
