@@ -18,7 +18,6 @@ import switch
 import socket
 import ultra
 import FPV
-import app
 
 #websocket
 import asyncio
@@ -251,9 +250,7 @@ if __name__ == '__main__':
     PORT = 10223                              #Define port serial 
     BUFSIZ = 1024                             #Define buffer size
     ADDR = (HOST, PORT)
-    global flask_app
-    flask_app = app.webapp()
-    flask_app.startthread()
+
     try:
         RL=robotLight.RobotLight()
         RL.start()
