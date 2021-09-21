@@ -102,7 +102,6 @@ def ap_thread():
 
 def robotCtrl(data):
     global direction_command, turn_command, speed_set
-    print("inside robotCtrl",data)
     if 'stop' in data["direction"]:
         direction_command = 'no'
         move.move(data["speed"], 'no', 'no', data["rads"])
@@ -209,7 +208,6 @@ async def recv_msg(websocket):
             continue
 
         if 'mobility' == data["type"]:
-            print("before function Call",data)
             robotCtrl(data)
 
         if 'get_info' == data["type"]:
