@@ -102,6 +102,7 @@ def ap_thread():
 
 def robotCtrl(data):
     global direction_command, turn_command, speed_set
+    print("inside robotCtrl",data)
     if 'stop' in data["direction"]:
         direction_command = 'no'
         move.move(data["speed"], 'no', 'no', data["rads"])
