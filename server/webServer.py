@@ -100,27 +100,20 @@ def FPV_thread():
 def ap_thread():
     os.system("sudo create_ap wlan0 eth0 Groovy 12345678")
 
-def robotCtrl(command_input, response):
-    global direction_command, turn_command
-    if 'forward' == command_input:
-        direction_command = 'forward'
-        move.move(speed_set, 'forward', 'no', rad)
-    elif 'backward' == command_input:
-        direction_command = 'backward'
-        move.move(speed_set, 'backward', 'no', rad)
-    elif 'DS' in command_input:
+def robotCtrl(data):
+    global direction_command, turn_command, speed_set
+    if 'stop' in data["direction"]:
         direction_command = 'no'
-        move.move(speed_set, 'no', 'no', rad)
-    elif 'left' == command_input:
-        turn_command = 'left'
-        move.move(speed_set, 'no', 'left', rad)
-    elif 'right' == command_input:
-        turn_command = 'right'
-        move.move(speed_set, 'no', 'right', rad)
-    elif 'up' == command_input:
+        move.move(data["speed"], 'no', 'no', data["rads"])
+    elif 'up' == data["direction"]:
         servo.camera_ang('lookup','no')
-    elif 'down' == command_input:
+    elif 'down' == data["direction"]:
         servo.camera_ang('lookdown','no')
+    else:
+        direction_command = data["direction"]
+        turn_command = data["direction"]
+        speed_set = data["speed"]
+        move.move(data["speed"] , data["direction"], data["turn"], data["rads"])
 
 def update_code():
     # Update local to be consistent with remote
@@ -214,19 +207,13 @@ async def recv_msg(websocket):
         if not data:
             continue
 
-        if isinstance(data,str):
-            robotCtrl(data, response)
+        if 'mobility' == data["type"]:
+            robotCtrl(data)
+            speed_set = int(set_B[1])
 
-            if 'get_info' == data:
-                response['title'] = 'get_info'
-                response['data'] = [info.get_cpu_tempfunc(), info.get_cpu_use(), info.get_ram_info()]
-
-            if 'wsB' in data:
-                try:
-                    set_B=data.split()
-                    speed_set = int(set_B[1])
-                except:
-                    pass
+        if 'get_info' == data["type"]:
+            response['title'] = 'get_info'
+            response['data'] = [info.get_cpu_tempfunc(), info.get_cpu_use(), info.get_ram_info()]
 
         if not functionMode:
             if OLED_connection:
