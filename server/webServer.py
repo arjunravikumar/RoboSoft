@@ -148,7 +148,7 @@ def wifi_check():
             screen.screen_show(3, 'AP MODE OFF')
     except:
         RL.pause()
-        RL.setColor(0,255,64)
+        RL.setColor(0,0,0)
         ap_threading=threading.Thread(target=ap_thread)   #Define a thread for data receiving
         ap_threading.setDaemon(True)                          #'True' means it is a front thread,it would close when the mainloop() closes
         ap_threading.start()                                  #Thread starts
@@ -271,12 +271,12 @@ if __name__ == '__main__':
             RL.setColor(0,0,0)
 
         try:
-            RL.setColor(0,80,255)
+            RL.setColor(0,0,0)
         except:
             pass
     try:
         RL.pause()
-        RL.setColor(0,255,64)
+        RL.setColor(0,0,0)
         asyncio.get_event_loop().run_forever()
     except Exception as e:
         print(e)
