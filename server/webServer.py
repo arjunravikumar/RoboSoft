@@ -209,7 +209,6 @@ async def recv_msg(websocket):
 
         if 'mobility' == data["type"]:
             robotCtrl(data)
-            speed_set = int(set_B[1])
 
         if 'get_info' == data["type"]:
             response['title'] = 'get_info'
