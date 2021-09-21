@@ -209,6 +209,7 @@ async def recv_msg(websocket):
             continue
 
         if 'mobility' == data["type"]:
+            print("before function Call",data)
             robotCtrl(data)
 
         if 'get_info' == data["type"]:
