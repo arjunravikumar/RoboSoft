@@ -154,23 +154,23 @@ def wifi_check():
         ap_threading.start()                                  #Thread starts
         if OLED_connection:
             screen.screen_show(2, 'AP Starting 10%')
-        RL.setColor(0,0,50)
+        RL.setColor(0,0,0)
         time.sleep(1)
         if OLED_connection:
             screen.screen_show(2, 'AP Starting 30%')
-        RL.setColor(0,0,100)
+        RL.setColor(0,0,0)
         time.sleep(1)
         if OLED_connection:
             screen.screen_show(2, 'AP Starting 50%')
-        RL.setColor(0,0,150)
+        RL.setColor(0,0,0)
         time.sleep(1)
         if OLED_connection:
             screen.screen_show(2, 'AP Starting 70%')
-        RL.setColor(0,0,200)
+        RL.setColor(0,0,0)
         time.sleep(1)
         if OLED_connection:
             screen.screen_show(2, 'AP Starting 90%')
-        RL.setColor(0,0,255)
+        RL.setColor(0,0,0)
         time.sleep(1)
         if OLED_connection:
             screen.screen_show(2, 'AP Starting 100%')
