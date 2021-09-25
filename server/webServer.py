@@ -104,7 +104,7 @@ def robotCtrl(data):
     global direction_command, turn_command, speed_set
     if 'stop' in data["direction"]:
         direction_command = 'no'
-        move.move(data["speed"], 'no', 'no', data["rads"])
+        stopRobotMovement()
     elif 'up' == data["direction"]:
         servo.camera_ang('lookup','no')
     elif 'down' == data["direction"]:
@@ -114,6 +114,12 @@ def robotCtrl(data):
         turn_command = data["direction"]
         speed_set = data["speed"]
         move.move(data["speed"] , data["direction"], data["turn"], data["rads"])
+        time.sleep(data["stopIn"])
+        direction_command = 'no'
+        stopRobotMovement()
+
+def stopRobotMovement():
+    move.move(0, 'no', 'no', 0.5)
 
 def update_code():
     # Update local to be consistent with remote
