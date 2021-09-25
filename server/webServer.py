@@ -40,6 +40,7 @@ functionMode = 0
 speed_set = 100
 rad = 0.5
 turnWiggle = 60
+imgLatency = 0.3
 
 scGear = RPIservo.ServoCtrl()
 scGear.moveInit()
@@ -191,7 +192,7 @@ async def check_permit(websocket):
             await websocket.send(response_str)
 
 async def recv_msg(websocket):
-    global speed_set, modeSelect
+    global speed_set, modeSelect, imgLatency
     move.setup()
     direction_command = 'no'
     turn_command = 'no'
@@ -230,6 +231,7 @@ async def recv_msg(websocket):
         response["requestTime"] = data["requestTime"]
         response["responseTime"] = time.time() * 1000
         response = json.dumps(response)
+        time.sleep(imgLatency)
         await websocket.send(response)
 
 async def main_logic(websocket, path):
