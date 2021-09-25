@@ -40,7 +40,7 @@ functionMode = 0
 speed_set = 100
 rad = 0.5
 turnWiggle = 60
-imgLatency = 0.2
+imgLatency = 0.15
 
 scGear = RPIservo.ServoCtrl()
 scGear.moveInit()
