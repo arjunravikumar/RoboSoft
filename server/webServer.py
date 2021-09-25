@@ -212,11 +212,11 @@ async def recv_msg(websocket):
 
         if not data:
             continue
-
+        response["recieverLatency"] = (time.time() * 1000) - data["requestTime"]
         if 'mobility' == data["type"]:
             robotCtrl(data)
 
-        if 'get_info' == data["type"]:
+        elif 'get_info' == data["type"]:
             response['title'] = 'get_info'
             response['data'] = [info.get_cpu_tempfunc(), info.get_cpu_use(), info.get_ram_info()]
 
