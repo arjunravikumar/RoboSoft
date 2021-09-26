@@ -230,7 +230,7 @@ async def recv_msg(websocket):
         response["requestTime"] = data["requestTime"]
         response["responseTime"] = time.time() * 1000
         response = json.dumps(response)
-        print("waiting for"+data["latency"])
+        print("waiting for",data["latency"])
         time.sleep(data["latency"])
         await websocket.send(response)
 
