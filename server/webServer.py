@@ -114,9 +114,6 @@ def robotCtrl(data):
         turn_command = data["direction"]
         speed_set = data["speed"]
         move.move(data["speed"] , data["direction"], data["turn"], data["rads"])
-        time.sleep(data["stopIn"])
-        direction_command = 'no'
-        stopRobotMovement()
 
 def stopRobotMovement():
     move.move(0, 'no', 'no', 0.5)
@@ -230,8 +227,6 @@ async def recv_msg(websocket):
         response["requestTime"] = data["requestTime"]
         response["responseTime"] = time.time() * 1000
         response = json.dumps(response)
-        print("waiting for",data["latency"])
-        time.sleep(data["latency"])
         await websocket.send(response)
 
 async def main_logic(websocket, path):
