@@ -70,12 +70,12 @@ def motor_left(status, direction, speed):#Motor 2 positive and negative rotation
 			GPIO.output(Motor_B_Pin1, GPIO.HIGH)
 			GPIO.output(Motor_B_Pin2, GPIO.LOW)
 			pwm_B.start(100)
-			pwm_B.ChangeDutyCycle(int(speed * 0.70))
+			pwm_B.ChangeDutyCycle(int(speed * 0.50))
 		elif direction == Dir_forward:
 			GPIO.output(Motor_B_Pin1, GPIO.LOW)
 			GPIO.output(Motor_B_Pin2, GPIO.HIGH)
 			pwm_B.start(0)
-			pwm_B.ChangeDutyCycle(int(speed * 0.70))
+			pwm_B.ChangeDutyCycle(int(speed * 0.50))
 
 
 def motor_right(status, direction, speed):#Motor 1 positive and negative rotation
