@@ -209,7 +209,7 @@ async def recv_msg(websocket):
 
         if not data:
             continue
-        response["recieverLatency"] = (time.time() * 1000) - data["requestTime"]
+        response["recieverLatency"] = time.time() - data["requestTime"]
         if 'mobility' == data["type"]:
             robotCtrl(data)
 
@@ -225,7 +225,7 @@ async def recv_msg(websocket):
 
         print(data)
         response["requestTime"] = data["requestTime"]
-        response["responseTime"] = time.time() * 1000
+        response["responseTime"] = time.time()
         response = json.dumps(response)
         await websocket.send(response)
 
