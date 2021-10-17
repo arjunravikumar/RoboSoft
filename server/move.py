@@ -119,7 +119,7 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 		else:
 			motor_left(1, left_backward, speed)
 			motor_right(1, right_backward, speed)
-	elif direction == 'right' or direction == 'left':
+	elif direction == 'right' or direction == 'left' or direction == 'stop':
 		if turn == 'right':
 			motor_left(1, left_backward, speed)
 			motor_right(1, right_forward, speed)
