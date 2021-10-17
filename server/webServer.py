@@ -103,6 +103,7 @@ def ap_thread():
 def robotCtrl(data):
     global direction_command, turn_command, speed_set
     if 'stop' in data["direction"]:
+        print("stop triggered")
         direction_command = 'no'
         stopRobotMovement()
     elif 'up' == data["direction"]:
